@@ -4,6 +4,8 @@
 
 A lightweight Android screen management library. Stop writing Fragment boilerplate, ViewModel wiring, and back-stack plumbing — and start writing business logic.
 
+View full documentation on dev.ayazalvi.com/framework
+
 Framework gives you a single `Screen` abstraction that handles navigation, state, lifecycle, and result passing out of the box. Built on the standard Fragment back stack, no black-box navigation graphs.
 
 ---
