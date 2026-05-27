@@ -1,0 +1,5 @@
+# In root directory/jitpack.yml
+jdk:
+  - openjdk17
+before_install:
+  - ./gradlew :library:assembleRelease
