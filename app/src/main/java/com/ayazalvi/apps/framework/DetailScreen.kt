@@ -4,6 +4,11 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.core.net.toUri
 import com.ayazalvi.apps.framework.databinding.LayoutDetailBinding
+import com.ayazalvi.framework.Screen
+import com.ayazalvi.framework.ScreenContext
+import com.ayazalvi.framework.presentBottomSheet
+import com.ayazalvi.framework.presentDialogForResult
+import com.ayazalvi.framework.state
 
 class DetailScreen(context: ScreenContext) : Screen<LayoutDetailBinding>(context) {
 

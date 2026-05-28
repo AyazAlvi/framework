@@ -1,6 +1,11 @@
 package com.ayazalvi.apps.framework;
 
 import com.ayazalvi.apps.framework.databinding.LayoutDetailBinding;
+import com.ayazalvi.framework.FrameworkKt;
+import com.ayazalvi.framework.Screen;
+import com.ayazalvi.framework.ScreenContext;
+import com.ayazalvi.framework.ScreenState;
+
 import kotlin.Unit;
 
 public class DetailScreen2 extends Screen<LayoutDetailBinding> {

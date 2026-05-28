@@ -1,5 +1,7 @@
 package com.ayazalvi.apps.framework
 
+/*
+
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
@@ -177,10 +179,12 @@ class ScreenState<T>(
 
 fun <T> Screen<*>.state(key: String, initialValue: T) = ScreenState(this, key, initialValue)
 
+*/
 /**
  * Scopes a ViewModel to the underlying FrameworkActivity.
  * Any screen calling this with the same ViewModel class will receive the exact same shared instance.
- */
+ *//*
+
 inline fun <reified VM : ViewModel> Screen<*>.sharedViewModel(): VM {
     return ViewModelProvider(this.activity)[VM::class.java]
 }
@@ -284,10 +288,12 @@ abstract class Screen<VB : ViewBinding>(
 
     // --- Result Propagation & Smart Closing API ---
 
-    /**
+    */
+/**
      * Intelligently closes the current screen by detecting its host type.
      * Prevents back-stack bugs when closing dialogs or bottom sheets.
-     */
+     *//*
+
     fun close() {
         when (hostFragment) {
             is BottomSheetDialogFragment -> navigator.dismissCurrentBottomSheet()
@@ -638,7 +644,7 @@ abstract class FrameworkActivity : AppCompatActivity(), Navigator {
         val popEnterAnim = getThemeAnimation(android.R.attr.activityCloseEnterAnimation)
         val popExitAnim = getThemeAnimation(android.R.attr.activityCloseExitAnimation)
 
-        if (enterAnim != 0 && exitAnim != 0) {
+        if (enterAnim != 0 && exitAnim != 0 && sharedElement == null) {
             transaction.setCustomAnimations(enterAnim, exitAnim, popEnterAnim, popExitAnim)
         }
 
@@ -695,3 +701,4 @@ abstract class FrameworkActivity : AppCompatActivity(), Navigator {
             .lastOrNull()?.dismiss()
     }
 }
+*/

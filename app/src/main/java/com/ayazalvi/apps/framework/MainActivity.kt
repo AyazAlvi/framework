@@ -6,6 +6,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ayazalvi.apps.framework.databinding.LayoutDetailBinding
 import com.ayazalvi.apps.framework.databinding.LayoutHomeBinding
+import com.ayazalvi.framework.FrameworkActivity
+import com.ayazalvi.framework.ScreenRegistry
+import com.ayazalvi.framework.push
 
 class MainActivity : FrameworkActivity() {
 
