@@ -245,12 +245,12 @@ abstract class Screen<VB : ViewBinding>(
         _ui = binding as VB
         bindingRegistry.clear()
         onUIInternal()
-        try { onUI() } catch (e: Exception) { if (e is ActionableException) onActionException(e) else onErrorReceived(e) }
+        try { onUI() } catch (e: Exception) { onErrorReceived(e) }
         stateDataRegistry.forEach { (key, data) -> executeBindings(key, data) }
     }
 
-    open fun onActionException (action: ActionableException) { onErrorReceived(action) }
-    open fun onErrorReceived (e: Exception) { Log.e("Class::" + this::class.simpleName, "Class::" + this::class.simpleName + " --- $e") }
+    open fun onActionException (action: ActionableException) { onErrorReceived(Throwable(action.msg)) }
+    open fun onErrorReceived (e: Throwable) { Log.e("Class::" + this::class.simpleName, "Class::" + this::class.simpleName + " --- $e") }
 
     internal fun detachUI() {
         _ui = null
