@@ -42,7 +42,7 @@ afterEvaluate {
 
                 groupId = "com.github.ayazalvi"
                 artifactId = "framework"
-                version = "1.0.1" // Change this for every new release
+                version = "1.0.2" // Change this for every new release
             }
         }
     }
@@ -50,7 +50,7 @@ afterEvaluate {
 
 dependencies {
     implementation(libs.androidx.activity.ktx)
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)

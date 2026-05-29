@@ -2,10 +2,12 @@ package com.ayazalvi.framework
 
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -208,7 +210,7 @@ abstract class Screen<VB : ViewBinding>(
             (hostFragment as? BackPressHandler)?.updateBackPressState(value)
         }
 
-    open fun onBackPressed() { navigator.performDefaultBack() }
+    open fun onBackPressed() { close() }
 
     // Expose context parameters cleanly
     val navigator: Navigator get() = context.navigator
@@ -223,6 +225,9 @@ abstract class Screen<VB : ViewBinding>(
     val ui: VB get() = _ui ?: throw IllegalStateException("UI is not attached right now.")
 
     open fun onFirstLaunch() {}
+    fun onUIInternal() {
+        if (ui.root.background == null) ui.root.background = activity.window.decorView.background
+    }
     abstract fun onUI()
 
     internal fun performFirstLaunch() {
@@ -239,9 +244,13 @@ abstract class Screen<VB : ViewBinding>(
         @Suppress("UNCHECKED_CAST")
         _ui = binding as VB
         bindingRegistry.clear()
-        onUI()
+        onUIInternal()
+        try { onUI() } catch (e: Exception) { if (e is ActionableException) onActionException(e) else onErrorReceived(e) }
         stateDataRegistry.forEach { (key, data) -> executeBindings(key, data) }
     }
+
+    open fun onActionException (action: ActionableException) { onErrorReceived(action) }
+    open fun onErrorReceived (e: Exception) { Log.e("Class::" + this::class.simpleName, "Class::" + this::class.simpleName + " --- $e") }
 
     internal fun detachUI() {
         _ui = null
@@ -300,8 +309,8 @@ abstract class Screen<VB : ViewBinding>(
     // --- Result Propagation API ---
 
     fun setResult(requestKey: String, result: Bundle) {
-//        hostFragment?.parentFragmentManager?.setFragmentResult(requestKey, result)
-        activity.supportFragmentManager.setFragmentResult(requestKey, result)
+        hostFragment?.parentFragmentManager?.setFragmentResult(requestKey, result)
+//        activity.supportFragmentManager.setFragmentResult(requestKey, result)
     }
 
     fun listenForResult(requestKey: String, onResult: (Bundle) -> Unit) {
