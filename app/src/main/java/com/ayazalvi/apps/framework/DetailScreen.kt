@@ -1,28 +1,31 @@
 package com.ayazalvi.apps.framework
 
+import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.ayazalvi.apps.framework.databinding.LayoutDetailBinding
-import com.ayazalvi.framework.ActionableException
-import com.ayazalvi.framework.Screen
-import com.ayazalvi.framework.ScreenContext
-import com.ayazalvi.framework.cast
-import com.ayazalvi.framework.presentBottomSheet
-import com.ayazalvi.framework.presentDialog
-import com.ayazalvi.framework.state
+import com.ayazalvi.framework.core.navigator.presentBottomSheet
+import com.ayazalvi.framework.core.navigator.presentDialog
+import com.ayazalvi.framework.core.screen.Screen
+import com.ayazalvi.framework.core.screen.ScreenContext
+import com.ayazalvi.framework.core.screen.state
+import com.ayazalvi.framework.utils.exception.ActionableException
+import com.ayazalvi.framework.utils.exception.cast
+import com.ayazalvi.framework.utils.file.MediaPicker
 import com.google.android.material.snackbar.Snackbar
 
 class DetailScreen(context: ScreenContext) : Screen<LayoutDetailBinding>(context) {
 
-    lateinit var picker: ImagePicker
+    val picker = MediaPicker(this)
 //    val displayText = state("display_text", arguments?.getString("FINAL_COUNT") ?: "NOTHING")
     val displayText = state<Pair<String?, String?>>("display_text2", Pair(null, null))
 
+    @SuppressLint("SetTextI18n")
     override fun onUI() {
 //        displayText.bind(ui.text) { text, view -> view.text = text }
-        displayText.bind(ui.text) { data, view ->view.text = "Uri: " + data.first + "\nError: " + data.second; ui.image.setImageURI(data.first?.toUri()) }
-        picker = ImagePicker(fragment) { uri, err -> if (uri == null) this@DetailScreen cast ActionableException(err, "Okay") { Toast.makeText(activity, "Clicked!", Toast.LENGTH_SHORT).show() } else displayText.value = uri.toString() to err }
-        ui.btn1.setOnClickListener { picker.pick() }
+        picker.init { data, err -> if (data == null) this@DetailScreen cast ActionableException(err, "Okay") { Toast.makeText(activity, "Clicked!", Toast.LENGTH_SHORT).show() } else displayText.value = data.toString() to err }
+        displayText.bind(ui.text) { data, view -> view.text = "Uri: " + data.first + "\nError: " + data.second; ui.image.setImageURI(data.first?.toUri()) }
+        ui.btn1.setOnClickListener { picker.pickImage() }
         ui.btn2.setOnClickListener { navigator.presentDialog<DetailScreen>() }
         ui.btn.setOnClickListener { onBackPressed() }
         ui.btn3.setOnClickListener { navigator.presentBottomSheet<DetailScreen>() }

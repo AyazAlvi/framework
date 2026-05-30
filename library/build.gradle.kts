@@ -37,12 +37,10 @@ afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("release") {
-                // Tells Maven to include the AAR file of your library
                 from(components["release"])
-
                 groupId = "com.github.ayazalvi"
                 artifactId = "framework"
-                version = "1.0.2" // Change this for every new release
+                version = "0.1.0"
             }
         }
     }

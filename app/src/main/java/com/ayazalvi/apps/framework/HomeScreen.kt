@@ -2,10 +2,10 @@ package com.ayazalvi.apps.framework
 
 import android.os.Bundle
 import com.ayazalvi.apps.framework.databinding.LayoutHomeBinding
-import com.ayazalvi.framework.Screen
-import com.ayazalvi.framework.ScreenContext
-import com.ayazalvi.framework.persist
-import com.ayazalvi.framework.push
+import com.ayazalvi.framework.core.navigator.push
+import com.ayazalvi.framework.core.screen.Screen
+import com.ayazalvi.framework.core.screen.ScreenContext
+import com.ayazalvi.framework.savedpref.persist
 
 // The constructor precisely matches the framework's requirement, allowing the '::HomeScreen' shortcut
 class HomeScreen(context: ScreenContext) : Screen<LayoutHomeBinding>(context) {
